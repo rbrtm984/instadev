@@ -1,12 +1,13 @@
 const pgp = require('pg-promise')();
+require('dotenv').config();
 
 // Database connection details
 const dbConfig = {
-    host: 'drona.db.elephantsql.com',
-    port: 5432,
-    database: 'olohyivq',
-    user: 'olohyivq',
-    password: 'a-97tniKSJw31Bdg5-fFx1Ay3v7UDuIH',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
 };
 
 const db = pgp(dbConfig);
