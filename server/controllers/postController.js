@@ -14,6 +14,30 @@ function base64_encode(file) {
     }
 }
 
+PostController.getAllPosts = async (req, res, next) => {
+    try {
+        const posts = await Post.find({});
+        res.locals.allPosts = posts;
+        return next();
+    } catch (err) {
+        console.error(err);
+        return next({});
+    }
+}
+
+PostController.getUserPosts = async (req, res, next) => {
+    try {
+        const { username } = req.params;
+        const user = await User.findOne({ username: username });
+        const posts = await Post.find({ userId: user._id });
+        res.locals.UserPosts = posts;
+        return next();
+    } catch (err) {
+        console.error(err);
+        return next({});
+    }
+}
+
 PostController.addPost = async (req, res, next) => {
     try {
         const img = req.file.filename;
